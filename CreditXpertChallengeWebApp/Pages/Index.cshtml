@@ -1,0 +1,29 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-left">
+    <h1 class="display-4">Welcome</h1>
+    <h2> Please click blow for the solution of the challenges in the description</h2>
+    <p>
+        <b>Challenge #1</b> - Create an interface in Python to display a draggable shape in the middle of the screen.  The shape should change color as it moves from the center to the edge of the screen.
+        Allow user to choose the type of shape and a sequence of changing colors from a dropdown list. The list should be populated on page load via API call to a service written in Python.</a>.
+    </p>
+    <p>
+        <b>Solution </b>- <a asp-area="" asp-page="/ChallengeOne" /> Click here...</a>
+    </p>
+
+    <p>
+        <b>Challenge #2</b> - An ant is sitting on a grid of white and black squares.  Initially the grid is all white and the ant faces right.
+        At each step it does the following:
+        At a white square, flip the color of the square, turn 90 degrees right (clockwise), and move forward one unit.
+        At a black square, flip the color of the square, turn 90 degrees left (counterclockwise), and move forward one unit.
+
+        Write a program in Python to simulate the first K moves that the ant makes and display the grid at each move on an interface.  The only input to the method is the number of moves K.
+    </p>
+    <p>
+        <b>Solution </b>- <a asp-area="" asp-page="/ChallengeTwo" /> Click here...</a>
+    </p>
+</div>

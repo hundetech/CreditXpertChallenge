@@ -1,0 +1,98 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.squareBlack {
+    width: 50px; /* Square size */
+    height: 50px; /* Square size */
+    background-color: black; /* Square color */
+    margin: 1px; /* Space between squares */
+    display: inline-block; /* Align squares in a row */
+    border-block-color:black;
+    border-bottom-color:black;
+    border-color:black;
+}
+.squareWhite {
+    width: 50px; /* Square size */
+    height: 50px; /* Square size */
+    background-color: white; /* Square color */
+    margin: 1px; /* Space between squares */
+    display: inline-block; /* Align squares in a row */
+    border-block-color:black;
+    border-bottom-color:black;
+    border-color:black;
+}
+
+td {
+    width: 50px; /* Adjust based on square size */
+    height: 50px; /* Adjust based on square size */
+    text-align: center;
+    vertical-align: middle;
+}
+table {
+    border-collapse: collapse; /* Ensures that the border is collapsed into a single border */
+}
+
+th, td {
+    border: 1px solid black; /* Adds a solid black border */
+    padding: 8px; /* Adjust padding inside cells */
+    text-align: center;
+    vertical-align:middle;
+}
+
+th {
+    background-color: #f2f2f2; /* Light grey background for header cells */
+    text-align: left; /* Aligns text to the left */
+}
+
+
+
+.Circle {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    //transform: translate(-50%, -50%);
+}
+
+
+.Square {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.Rectangle {
+    width: 130px;
+    height: 60px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.shapeContainer {
+    width: 1200px;
+    height: 600px;
+    position: relative;
+    border: 1px solid black;
+    padding: 0px;
+}

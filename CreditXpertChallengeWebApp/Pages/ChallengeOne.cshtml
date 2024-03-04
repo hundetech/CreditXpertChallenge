@@ -1,0 +1,110 @@
+﻿@page
+@model ChallengeOneModel
+@{
+    ViewData["Title"] = "Challenge One";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div id="divInput">
+    <select id="selectShape"></select>
+    <select id="selectColor"></select>
+    <button id="btnDrawShape">Draw Shape</button>
+</div>
+
+<br />
+
+<div id="shapeContainer" class="shapeContainer" >
+    <div id="shape" ></div>
+</div>
+<div id="divShapeState"></div>
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            var SelectedBackgroudColor = "";
+            var shapeCenter = 50;
+            var xCenter;
+            var yCenter;
+            var a;
+            var b;
+            var c;
+
+            $("#btnDrawShape").click(function () {
+
+                $('#shape').removeAttr("style");
+                $('#shape').removeClass().addClass($('#selectShape').find(":selected").text());
+                $('#shape').css('background-color', $('#selectColor').find(":selected").text());
+                
+                SelectedBackgroudColor = $('#selectColor').find(":selected").text();
+                xCenter = $('#shape').position().left - shapeCenter;
+                yCenter = $('#shape').position().top - shapeCenter;
+
+                $("#shape").css({ top: yCenter, left: xCenter });
+
+                a = Math.abs(xCenter - xCenter);
+                b = Math.abs(yCenter - yCenter);
+                c = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+
+
+                DisplayInfo($('#shape').position(), a, b, c, xCenter, yCenter, `rgb(0, 0, 0)`);
+                
+            });
+
+            $.getJSON('https://localhost:7237/ChallengeOne', function (data) {
+                $.each(data.shapes, function (key, value) {
+                    $('#selectShape').append($('<option></option>').attr('value', value).text(value));
+                });
+                $.each(data.colors, function (key, value) {
+                    $('#selectColor').append($('<option></option>').attr('value', value).text(value));
+                });
+            });
+
+            DisplayInfo = function(x,a,b,c, xCenter, yCenter, color) {
+                $('#divShapeState').empty();
+                $('#divShapeState').append('<b>( XC = ' + xCenter + ', YC = ' + yCenter + ') - (X =' + x.left + '  Y = ' + x.top + ') - ( a= ' + a + ' b= ' + b + ' c= ' + c + ' ) -  ' + color + '<b>');
+            }
+
+
+            $('#shape').draggable({
+                containment: 'parent',
+                drag: function () {
+                                      
+                    var position = $(this).position();
+
+                     a = Math.abs(position.left-xCenter);
+                     b = Math.abs(position.top-yCenter);
+                     c = Math.sqrt(Math.pow(a,2)+Math.pow(b,2));
+
+                    
+                    var maxDistance = Math.sqrt(Math.pow(xCenter, 2) + Math.pow(yCenter, 2));
+
+                    var colorIntensity = c / maxDistance;
+
+                    var var255 = 255 * (1 - colorIntensity);
+                    var var0 = 255 * colorIntensity;
+                    var var128 = 128 * (1 - colorIntensity);
+
+                    if(SelectedBackgroudColor=="Red"){
+                        $(this).css('background-color', `rgb(${var255}, ${var0}, ${var0})`); 
+                        DisplayInfo(position, a, b, c, xCenter, yCenter, `rgb(${var255}, ${var0}, ${var0})`);
+                    }else if(SelectedBackgroudColor=="Blue"){
+                        $(this).css('background-color', `rgb(${var0}, ${var0}, ${var255})`);
+                        DisplayInfo(position, a, b, c, xCenter, yCenter, `rgb(${var0}, ${var0}, ${var255})`);
+                    }else if(SelectedBackgroudColor=="Green"){
+                        $(this).css('background-color', `rgb(${var0}, ${var128}, ${var0})`);
+                        DisplayInfo(position, a, b, c, xCenter, yCenter, `rgb(${var0}, ${var128}, ${var0})`);
+                    } else if (SelectedBackgroudColor == "Yellow") {
+                        $(this).css('background-color', `rgb(${var255}, ${var255}, ${var0})`);
+                        DisplayInfo(position, a, b, c, xCenter, yCenter, `rgb(${var255}, ${var255}, ${var0})`);
+                    }
+                }
+            });
+
+        });
+
+                      
+    </script>
+}

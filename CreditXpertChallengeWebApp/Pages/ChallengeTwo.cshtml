@@ -1,0 +1,74 @@
+﻿@page
+@model ChallengeTwoModel
+@{
+    ViewData["Title"] = "Challenge Two";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div id="input-area">
+    <input type="number" id="txtNumberOfMoves" placeholder="Number of Moves...">
+    <button id="btnGetBoards">Draw Grid</button>
+</div>
+
+<br />
+<hr />
+
+<div id="gridContainer">
+
+    
+</div>
+
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+
+            $("#btnGetBoards").click(function () {
+                var userInput = $("#txtNumberOfMoves").val();
+                $('#gridContainer').empty();
+                $.ajax({
+                    url: 'https://localhost:7237/ChallengeTwo?numberOfMoves=' + userInput,
+                    type: 'GET',
+                    success: function (result) {
+                        result.forEach(function (board, index) {
+
+                            var $table = $('<table></table>');
+
+                            for (var i = 0; i < board.yMax; i++) {
+                                var $tr = $('<tr></tr>');
+                                for (var j = 0; j < board.xMax; j++) {
+
+                                    $tr.append($('<td><div id ="' + index + '-' + j + '-' + i + '" class="squareWhite"></div></td>'));
+                                }
+                                $table.append($tr);
+                            }
+
+                            $('#gridContainer').append($table); 
+
+                            $('#gridContainer').append('<hr/>')
+                            board.squares.forEach(function (square) {
+                                if (square.color == 1) {
+                                    $('#' + index + '-' + square.xIndex + '-' + square.yIndex).removeClass("squareWhite").addClass("squareBlack");
+                                }
+
+                            });
+                            $('#' + index + '-' + board.ant.xIndex + '-' + board.ant.yIndex).append('<b style="color: grey;font-size: 30px">' +  board.ant.direction + '</b>');
+                        });
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        
+        });
+
+
+
+    </script>
+}
+
+
+
+
